@@ -15,7 +15,8 @@ import chalk from "chalk";
 import figlet from "figlet";
 import gradient from "gradient-string";
 
-console.log(gradient.rainbow(figlet.textSync("Next Generator")));
+const { version } = require('../package.json')
+
 
 function commaSeparatedList(value: string, _previous: unknown) {
   return value.split(",");
@@ -52,6 +53,8 @@ program
     commaSeparatedList,
   )
   .action((type, name, options) => {
+    console.log(gradient.rainbow(figlet.textSync("Next Generator")));
+
     try {
       const attributes = parseOptions(options.attributes);
 
@@ -93,7 +96,10 @@ program
   .command("init")
   .description("Generate specific components for the T3 NextJS app")
   .action(() => {
+    console.log(gradient.rainbow(figlet.textSync("Next Generator")));
     generateConfigFile();
   });
+
+program.version(version as string)
 
 program.parse(process.argv);

@@ -1,6 +1,6 @@
 {
   "name": "@eagerworks/next-gen",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Generate typesafe boilerplate for your t3 app.",
   "main": "dist/index.js",
   "scripts": {
