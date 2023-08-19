@@ -5,8 +5,10 @@ import { camelize } from '../utils';
 import type { Attribute } from '../schemas/attribute';
 import type { Config } from '../schemas/config';
 
+import path from 'path';
+
 function generateZodSchema(modelName: string, attributes: Attribute[], config: Config) {
-  const template = fs.readFileSync(`${config.templates}/zodSchema.ts.template`);
+  const template = fs.readFileSync(path.resolve(config.templates || path.resolve(__dirname, '../templates'), 'zod.ts.template'));
   const className = modelName;
   const name = camelize(modelName);
   const interpolateValues = { className, name };
@@ -38,7 +40,9 @@ function generateZodSchema(modelName: string, attributes: Attribute[], config: C
     return '';
   });
 
-  fs.writeFileSync(`${config.zodSchemas}/${name}.ts`, fileContent);
+  fs.mkdirSync(path.resolve(config.zodSchemas), { recursive: true });
+
+  fs.writeFileSync(path.resolve(config.zodSchemas, `${name}.ts`), fileContent);
 }
 
 export default generateZodSchema;

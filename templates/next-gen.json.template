@@ -1,7 +1,7 @@
 {
-  "models": "",
-  "routers": "",
-  "zodSchemas": "",
-  "schema": "",
-  "pages": "",
+  "models": "./",
+  "routers": "./",
+  "zodSchemas": "./",
+  "schema": "./",
+  "pages": "./"
 }

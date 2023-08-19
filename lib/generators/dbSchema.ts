@@ -4,9 +4,10 @@ import { camelize } from '../utils';
 
 import type { Attribute } from '../schemas/attribute';
 import type { Config } from '../schemas/config';
+import path from 'path';
 
 function generateSchema(name: string, attributes: Attribute[], config: Config) {
-  const template = fs.readFileSync(`${config.templates}/schema.prisma.template`);
+  const template = fs.readFileSync(path.resolve(config.templates || path.resolve(__dirname, '../templates'), 'schema.prisma.template'));
   const interpolateValues = { className: name, name: camelize(name), schema: config.schema };
   let fileContent = template.toString();
 
@@ -39,7 +40,7 @@ function generateSchema(name: string, attributes: Attribute[], config: Config) {
     return '';
   });
 
-  fs.appendFileSync(`${config.schema}/schema.prisma`, fileContent);
+  fs.appendFileSync(path.resolve(config.schema, 'schema.prisma'), fileContent);
 }
 
 export default generateSchema;
