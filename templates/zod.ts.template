@@ -1,0 +1,5 @@
+const schema = z.object({
+  ${attributes}
+});
+
+export default schema;

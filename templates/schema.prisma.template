@@ -1,0 +1,4 @@
+model ${className} {
+  id          String        @id @default(cuid())
+  ${attributes}
+}
