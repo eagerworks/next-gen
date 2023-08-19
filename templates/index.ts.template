@@ -1,0 +1,14 @@
+import { api } from "~/utils/api";
+
+export default function Index() {
+  const { data, isLoading } = api.${pluralize(camelize(values.name))}.all.useQuery();
+
+  if (isLoading) {
+    // TODO: Show Skeleton
+    return <div>Loading</div>;
+  }
+
+  return (
+    <div>{JSON.stringify(data)}</div>
+  );
+}

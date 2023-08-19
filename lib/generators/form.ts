@@ -34,6 +34,29 @@ function generateEdit(modelName: string, config: Config) {
   console.log(`${chalk.green("Generated Edit")} - ${chalk.yellow(dirPath)}/${chalk.yellow("Edit.tsx")}`);
 }
 
+function generateIndex(modelName: string, config: Config) {
+  const template = fs.readFileSync(
+    path.resolve(
+      config.templates || path.resolve(__dirname, "../templates"),
+      "index.ts.template",
+    ),
+  );
+
+  const name = camelize(modelName);
+  const interpolateValues = { name };
+
+  const fileContent = interpolate(template.toString(), interpolateValues);
+
+  const dirPath = path.resolve(config.pages, name);
+
+  fs.mkdirSync(dirPath, { recursive: true });
+  fs.writeFileSync(
+    path.resolve(dirPath, "index.tsx"),
+    fileContent,
+  );
+
+  console.log(`${chalk.green("Generated Index")} - ${chalk.yellow(dirPath)}/${chalk.yellow("index.tsx")}`);
+}
 
 function generateNew(modelName: string, config: Config) {
   const template = fs.readFileSync(
@@ -87,6 +110,7 @@ function generateForm(modelName: string, config: Config) {
 
   generateNew(modelName, config);
   generateEdit(modelName, config);
+  generateIndex(modelName, config);
 }
 
 export default generateForm;

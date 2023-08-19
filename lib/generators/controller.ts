@@ -48,8 +48,6 @@ function generateController(modelName: string, config: Config) {
     importStatement,
   );
 
-  console.log(rootRouterContent);
-
   fs.writeFileSync(routesPath, rootRouterContent);
 
   console.log(`${chalk.green("Updated Root Router")} - ${chalk.yellow(routesPath)}`);
