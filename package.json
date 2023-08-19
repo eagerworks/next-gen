@@ -1,14 +1,28 @@
 {
   "name": "next-gen",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Generate typesafe boilerplate for your t3 app.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc && cp -R templates dist/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "t3-generator",
+    "cli",
+    "create-t3-app",
+    "init.tips",
+    "next.js",
+    "t3-stack",
+    "tailwind",
+    "tRPC",
+    "typescript"
+  ],
+  "author": "Santiago Calvo <scalvo@eagerworks.com> (https://eagerworks.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eagerworks/next-gen"
+  },
   "bin": {
     "next-gen": "dist/index.js"
   },
@@ -21,6 +35,10 @@
     "pluralize": "^8.0.0",
     "zod": "^3.22.1"
   },
+  "engines": {
+    "node": ">=16.14"
+  },
+  "packageManager": "pnpm@8.6.5",
   "devDependencies": {
     "@types/figlet": "^1.5.6",
     "@types/node": "^20.5.1",
