@@ -23,7 +23,7 @@ function generateSchema(name: string, attributes: Attribute[], config: Config) {
   let fileContent = template.toString();
 
   fileContent = fileContent.replace(/\${attributes}/g, () =>
-    attributes.map((attribute) => attributeBuilder(attribute)).join(",\n  ")
+    attributes.map((attribute) => attributeBuilder(attribute)).join("\n  ")
   );
 
   fileContent = interpolate(fileContent, interpolateValues);
