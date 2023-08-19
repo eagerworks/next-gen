@@ -38,4 +38,4 @@ Thumbs.db
 dist/**/*
 
 next-gen.json
-app/**/**
+app/**/*
