@@ -36,3 +36,6 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
+
+next-gen.json
+app/**/**

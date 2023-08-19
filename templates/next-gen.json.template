@@ -1,7 +1,7 @@
 {
-  "models": "./",
-  "routers": "./",
-  "zodSchemas": "./",
-  "schema": "./",
-  "pages": "./"
+  "models": "./app/models",
+  "routers": "./src/server/api/routers",
+  "zodSchemas": "./src/schemas",
+  "schema": "./prisma",
+  "pages": "./src/pages"
 }

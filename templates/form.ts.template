@@ -1,8 +1,52 @@
-export default function ${className}Form() {
+import { api } from "~/utils/api";
+
+import schema from '${values.schemas}/${camelize(values.name)}Schema';
+
+import { type SyntheticEvent, useRef } from 'react';
+
+export default function ${pascalize(values.name)}Form() {
+  const form = useRef(null);
+  const utils = api.useContext();
+
+  const { mutate } = api.${pluralize(camelize(values.name))}.create.useMutation({
+    async onSuccess() {
+      await utils.${pluralize(camelize(values.name))}.all.invalidate();
+    },
+  });
+
+  const handleSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+    if (!form.current) return;
+
+    const formData = new FormData(form.current);
+    const formValues: Record<string, unknown> = {};
+    formData.forEach((value, key) => {
+      if (!Reflect.has(formValues, key)) {
+        formValues[key] = value;
+        return;
+      }
+
+      if (!Array.isArray(formValues[key])) {
+        formValues[key] = [formValues[key]];
+      }
+
+      const values = formValues[key];
+      if (Array.isArray(values)) {
+        values.push(value);
+      }
+    });
+
+    const values = schema.parse(formValues);
+
+    mutate(values);
+  };
+
   return (
     <div className="p-4">
-      {/* TODO: Add form fields and handle submission */}
-      <button className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+      <form onSubmit={handleSubmit} ref={form}>
+        {/* TODO: Add form fields and handle submission */}
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+      </form>
     </div>
   );
 }

@@ -1,32 +1,34 @@
 import {
-  createRouter,
+  createTRPCRouter,
   publicProcedure,
 } from "../trpc";
 
-import schema from '${schemas}/${name}Schema.ts';
+import * as z from 'zod';
 
-export const ${name}Router = createRouter({
+import schema from '${values.schemas}/${camelize(values.name)}Schema';
+
+export const ${pluralize(camelize(values.name))}Router = createTRPCRouter({
   create: publicProcedure
     .input(schema)
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.${name}.create({
+      return ctx.prisma.${camelize(values.name)}.create({
         data: input,
       });
     }),
   update: publicProcedure
     .input(schema.extend({ id: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.${name}.create({
+      return ctx.prisma.${camelize(values.name)}.create({
         data: input,
       });
     }),
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.${name}.findMany();
+    return ctx.prisma.${camelize(values.name)}.findMany();
   }),
   get: publicProcedure.input(z.string()).query(({ ctx, input }) => {
-    return ctx.prisma.${name}.findUnique({ where: { id: input } });
+    return ctx.prisma.${camelize(values.name)}.findUnique({ where: { id: input } });
   }),
   delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.${name}.delete({ where: { id: input.id } });
+    return ctx.prisma.${camelize(values.name)}.delete({ where: { id: input } });
   }),
 });

@@ -1,4 +1,4 @@
-model ${className} {
+model ${pascalize(values.name)} {
   id          String        @id @default(cuid())
   ${attributes}
 }

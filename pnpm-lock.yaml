@@ -11,6 +11,9 @@ dependencies:
   commander:
     specifier: ^11.0.0
     version: 11.0.0
+  pluralize:
+    specifier: ^8.0.0
+    version: 8.0.0
   zod:
     specifier: ^3.22.1
     version: 3.22.1
@@ -19,6 +22,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.5.1
     version: 20.5.1
+  '@types/pluralize':
+    specifier: ^0.0.30
+    version: 0.0.30
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -27,6 +33,10 @@ packages:
 
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
+    dev: true
+
+  /@types/pluralize@0.0.30:
+    resolution: {integrity: sha512-kVww6xZrW/db5BR9OqiT71J9huRdQ+z/r+LbDuT7/EK50mCmj5FoaIARnVv0rvjUS/YpDox0cDU9lpQT011VBA==}
     dev: true
 
   /ansi-styles@4.3.0:
@@ -63,6 +73,11 @@ packages:
   /has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
+    dev: false
+
+  /pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
     dev: false
 
   /supports-color@7.2.0:

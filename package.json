@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsc && cp -R templates dist/templates"
+    "build": "npx tsc && cp -R templates dist/"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +15,12 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
+    "pluralize": "^8.0.0",
     "zod": "^3.22.1"
   },
   "devDependencies": {
     "@types/node": "^20.5.1",
+    "@types/pluralize": "^0.0.30",
     "typescript": "^5.1.6"
   }
 }

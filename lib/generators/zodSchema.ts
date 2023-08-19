@@ -6,12 +6,14 @@ import type { Attribute } from '../schemas/attribute';
 import type { Config } from '../schemas/config';
 
 import path from 'path';
+import chalk from 'chalk';
+
+import interpolate from '../utils/interpolate';
 
 function generateZodSchema(modelName: string, attributes: Attribute[], config: Config) {
   const template = fs.readFileSync(path.resolve(config.templates || path.resolve(__dirname, '../templates'), 'zod.ts.template'));
-  const className = modelName;
   const name = camelize(modelName);
-  const interpolateValues = { className, name };
+  const interpolateValues = { name };
   let fileContent = template.toString();
 
   fileContent = fileContent.replace(/\${attributes}/g, () => {
@@ -32,17 +34,13 @@ function generateZodSchema(modelName: string, attributes: Attribute[], config: C
     }).join(',\n  ');
   });
 
-  fileContent = fileContent.replace(/\${([^}]*)}/g, (_r, k) => {
-    if (k && k in interpolateValues) {
-      return interpolateValues[k as keyof typeof interpolateValues]
-    }
-
-    return '';
-  });
+  fileContent = interpolate(fileContent, interpolateValues)
 
   fs.mkdirSync(path.resolve(config.zodSchemas), { recursive: true });
 
-  fs.writeFileSync(path.resolve(config.zodSchemas, `${name}.ts`), fileContent);
+  fs.writeFileSync(path.resolve(config.zodSchemas, `${name}Schema.ts`), fileContent);
+
+  console.log(chalk.green("Generated zodSchema"));
 }
 
 export default generateZodSchema;

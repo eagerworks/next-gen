@@ -62,6 +62,12 @@ program
         case 'form':
           generateForm(name, config);
           break;
+        case 'scaffold':
+          generateController(name, config);
+          generateSchema(name, attributes, config);
+          generateZodSchema(name, attributes, config);
+          generateForm(name, config);
+          break;
       }
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
