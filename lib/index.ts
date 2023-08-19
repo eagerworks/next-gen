@@ -1,3 +1,3 @@
 #! /usr/bin/env node
 
-import './application';
+import "./application";

@@ -13,12 +13,16 @@
     "next-gen": "dist/index.js"
   },
   "dependencies": {
+    "@types/gradient-string": "^1.1.2",
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
+    "figlet": "^1.6.0",
+    "gradient-string": "^2.0.2",
     "pluralize": "^8.0.0",
     "zod": "^3.22.1"
   },
   "devDependencies": {
+    "@types/figlet": "^1.5.6",
     "@types/node": "^20.5.1",
     "@types/pluralize": "^0.0.30",
     "typescript": "^5.1.6"

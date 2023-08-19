@@ -1,19 +1,24 @@
-import fs from 'fs';
+import fs from "fs";
 
-import { type Attribute, attributeSchema } from './schemas/attribute';
-import { configSchema } from './schemas/config';
+import { type Attribute, attributeSchema } from "./schemas/attribute";
+import { configSchema } from "./schemas/config";
 
-import generateController from './generators/controller';
-import generateSchema from './generators/dbSchema';
-import generateZodSchema from './generators/zodSchema';
-import generateForm from './generators/form';
-import generateConfigFile from './generators/config';
+import generateController from "./generators/controller";
+import generateSchema from "./generators/dbSchema";
+import generateZodSchema from "./generators/zodSchema";
+import generateForm from "./generators/form";
+import generateConfigFile from "./generators/config";
 
-import { program } from 'commander';
-import chalk from 'chalk';
+import { program } from "commander";
+import chalk from "chalk";
+
+import figlet from "figlet";
+import gradient from "gradient-string";
+
+console.log(gradient.rainbow(figlet.textSync("Next Generator")));
 
 function commaSeparatedList(value: string, _previous: unknown) {
-  return value.split(',');
+  return value.split(",");
 }
 
 function parseOptions(options: unknown): Attribute[] {
@@ -22,8 +27,8 @@ function parseOptions(options: unknown): Attribute[] {
   }
 
   // if options is not an array, throw an error
-  if (typeof options !== 'object') {
-    throw new Error('Invalid options');
+  if (typeof options !== "object") {
+    throw new Error("Invalid options");
   }
 
   if (!Array.isArray(options)) {
@@ -32,16 +37,20 @@ function parseOptions(options: unknown): Attribute[] {
 
   // parse options as 'name:type'
   return options.map((option) => {
-    const [name, type] = option.split(':');
+    const [name, type] = option.split(":");
 
     return attributeSchema.parse({ name, type });
   });
 }
 
 program
-  .command('generate <type> <name>')
-  .description('Generate specific components for the T3 NextJS app')
-  .option('-a, --attributes <attributes>', 'List of attributes written as name:type', commaSeparatedList)
+  .command("generate <type> <name>")
+  .description("Generate specific components for the T3 NextJS app")
+  .option(
+    "-a, --attributes <attributes>",
+    "List of attributes written as name:type",
+    commaSeparatedList,
+  )
   .action((type, name, options) => {
     try {
       const attributes = parseOptions(options.attributes);
@@ -50,19 +59,19 @@ program
       const config = configSchema.parse(JSON.parse(configData.toString()));
 
       switch (type) {
-        case 'controller':
+        case "controller":
           generateController(name, config);
           break;
-        case 'schema':
+        case "schema":
           generateSchema(name, attributes, config);
           break;
-        case 'zodSchemas':
+        case "zodSchemas":
           generateZodSchema(name, attributes, config);
           break;
-        case 'form':
+        case "form":
           generateForm(name, config);
           break;
-        case 'scaffold':
+        case "scaffold":
           generateController(name, config);
           generateSchema(name, attributes, config);
           generateZodSchema(name, attributes, config);
@@ -70,7 +79,7 @@ program
           break;
       }
     } catch (error) {
-      if (error instanceof Error && 'message' in error) {
+      if (error instanceof Error && "message" in error) {
         console.error(chalk.red(error.message));
       } else {
         console.error(chalk.red("Unknown error"));
@@ -79,8 +88,8 @@ program
   });
 
 program
-  .command('init')
-  .description('Generate specific components for the T3 NextJS app')
+  .command("init")
+  .description("Generate specific components for the T3 NextJS app")
   .action(() => {
     generateConfigFile();
   });
