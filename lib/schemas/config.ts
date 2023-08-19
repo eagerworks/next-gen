@@ -6,7 +6,9 @@ const configSchema = z.object({
   zodSchemas: z.string(),
   schema: z.string(),
   pages: z.string(),
+  organisms: z.string(),
   templates: z.string().optional(),
+  rootRouter: z.string(),
 });
 
 type Config = z.infer<typeof configSchema>;

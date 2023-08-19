@@ -1,7 +1,9 @@
 {
   "models": "./app/models",
   "routers": "./src/server/api/routers",
+  "rootRouter": "./src/server/api/root.ts",
   "zodSchemas": "./src/schemas",
   "schema": "./prisma",
-  "pages": "./src/pages"
+  "pages": "./src/pages",
+  "organisms": "./src/components/organisms"
 }

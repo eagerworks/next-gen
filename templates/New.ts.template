@@ -1,0 +1,7 @@
+import ${pascalize(values.name)}Form from '~/components/organisms/${pascalize(values.name)}Form';
+
+export default function New() {
+  return (
+    <${pascalize(values.name)}Form />
+  )
+}

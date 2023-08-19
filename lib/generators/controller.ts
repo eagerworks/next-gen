@@ -21,12 +21,38 @@ function generateController(modelName: string, config: Config) {
   };
   const fileContent = interpolate(template.toString(), interpolateValues);
 
-  fs.mkdirSync(path.resolve(config.routers), { recursive: true });
+  const dirPath = path.resolve(config.routers);
+
+  fs.mkdirSync(dirPath, { recursive: true });
   fs.writeFileSync(
-    path.resolve(config.routers, `${pluralize(name)}.ts`),
+    path.resolve(dirPath, `${pluralize(name)}.ts`),
     fileContent,
   );
-  console.log(chalk.green("Generated Router"));
+
+  console.log(`${chalk.green("Generated Controller")} - ${chalk.yellow(dirPath)}/${chalk.yellow(`${pluralize(name)}.ts`)}`);
+
+  // Find root router and add new router to it
+  const routesPath = path.resolve(config.rootRouter);
+  const rootRouter = fs.readFileSync(routesPath);
+
+  let rootRouterContent = rootRouter.toString();
+  const routerStatement = `,\n  ${pluralize(name)}: ${pluralize(name)}Router,$1`;
+  rootRouterContent = rootRouterContent.replace(
+    /,([^,]*)$/,
+    routerStatement,
+  );
+
+  const importStatement = `$1import { ${pluralize(name)}Router } from "./routers/${pluralize(name)}";\n`;
+  rootRouterContent = rootRouterContent.replace(
+    /(import .*;\n)(?!import)/,
+    importStatement,
+  );
+
+  console.log(rootRouterContent);
+
+  fs.writeFileSync(routesPath, rootRouterContent);
+
+  console.log(`${chalk.green("Updated Root Router")} - ${chalk.yellow(routesPath)}`);
 }
 
 export default generateController;

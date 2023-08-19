@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 const attributeSchema = z.object({
-  type: z.enum(["string", "number", "boolean", "date", "json", "relation"]),
+  type: z.enum(["string", "number", "boolean", "date", "json", "relation", "float", "decimal", "text"]),
   name: z.string(),
 });
 

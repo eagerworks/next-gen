@@ -10,6 +10,12 @@ import chalk from "chalk";
 
 import interpolate from "../utils/interpolate";
 
+import typesMapping from "../typeMapping";
+
+function attributeBuilder(attribute: Attribute) {
+  return `${attribute.name}: ${typesMapping[attribute.type].zod}`;
+}
+
 function generateZodSchema(
   modelName: string,
   attributes: Attribute[],
@@ -25,25 +31,9 @@ function generateZodSchema(
   const interpolateValues = { name };
   let fileContent = template.toString();
 
-  fileContent = fileContent.replace(/\${attributes}/g, () => {
-    return attributes
-      .map((attribute) => {
-        switch (attribute.type) {
-          case "string":
-            return `${attribute.name}: z.string()`;
-          case "number":
-            return `${attribute.name}: z.number()`;
-          case "boolean":
-            return `${attribute.name}: z.boolean()`;
-          case "date":
-            return `${attribute.name}: z.date()`;
-          default:
-            console.warn("Type not supporter yet");
-            return "";
-        }
-      })
-      .join(",\n  ");
-  });
+  fileContent = fileContent.replace(/\${attributes}/g, () =>
+    attributes.map((attribute) => attributeBuilder(attribute)).join(",\n  ")
+  );
 
   fileContent = interpolate(fileContent, interpolateValues);
 

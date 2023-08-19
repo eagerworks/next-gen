@@ -62,9 +62,9 @@ Currently the following types are supported:
 - [x] boolean
 - [x] date
 - [x] json
-- [ ] text
-- [ ] float
-- [ ] double
+- [x] text
+- [x] float
+- [x] double
 - [ ] enums
 - [ ] references
 
@@ -91,11 +91,11 @@ next-gen generate scaffold Product --attributes name:string,price:number
 ## Roadmap
 
 - [ ] Add more types
-- [ ] Generate New page
-- [ ] Generate Edit page
+- [x] Generate New page
+- [x] Generate Edit page
 - [ ] Generate Index page
 - [ ] Generate Show page
-- [ ] Automatically add router to routes file
+- [x] Automatically add router to routes file
 - [ ] Form component should be created with necessary inputs
 - [ ] Allow setting custom inputs for each attribute type
 - [ ] Generate controller tests

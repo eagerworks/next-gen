@@ -4,9 +4,16 @@ import schema from '${values.schemas}/${camelize(values.name)}Schema';
 
 import { type SyntheticEvent, useRef } from 'react';
 
-export default function ${pascalize(values.name)}Form() {
+type Props = {
+  id?: string
+}
+
+export default function ${pascalize(values.name)}Form({ id }: Props) {
   const form = useRef(null);
   const utils = api.useContext();
+
+  const { data, isLoading } =
+    api.${pluralize(camelize(values.name))}.get.useQuery(id as string, { enabled: id !== undefined });
 
   const { mutate } = api.${pluralize(camelize(values.name))}.create.useMutation({
     async onSuccess() {
@@ -40,6 +47,18 @@ export default function ${pascalize(values.name)}Form() {
 
     mutate(values);
   };
+
+  if (isLoading) {
+    // if is loading we want to show a dummy form since editable data is loading
+    return (
+      <div className="p-4">
+        <form onSubmit={handleSubmit} ref={form}>
+          {/* TODO: Add form fields and handle submission */}
+          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4">

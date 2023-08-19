@@ -84,6 +84,8 @@ program
       } else {
         console.error(chalk.red("Unknown error"));
       }
+
+      console.log(error);
     }
   });
 

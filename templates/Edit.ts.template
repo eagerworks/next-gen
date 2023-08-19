@@ -1,0 +1,12 @@
+import { useRouter } from "next/router";
+
+import ${pascalize(values.name)}Form from '~/components/organisms/${pascalize(values.name)}Form';
+
+export default function Edit() {
+  const router = useRouter();
+  const id = router.query.id as string;
+
+  return (
+    <${pascalize(values.name)}Form id={id} />
+  )
+}
